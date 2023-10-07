@@ -71,3 +71,5 @@ app.use(Sentry.Handlers.requestHandler())
 app.use(Sentry.Handlers.errorHandler())
 
 app.use('/api', router)
+
+module.exports = app
