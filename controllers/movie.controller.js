@@ -39,7 +39,9 @@ class MovieController {
             const result = validationResult(req)
             if (result.isEmpty()) {
                 const movie = await movieService.search(req.query.movieName)
-                if (!movie) return res.send({message: 'there are not movies with this name'})
+                if (!movie) return res.send({
+                    message: 'there are not movies with this name'
+                })
                 res.send(movie)
             } else {
                 res.send({
@@ -54,8 +56,11 @@ class MovieController {
         try {
             const result = validationResult(req)
             if (result.isEmpty()) {
-                console.log('111111111111111')
-                const movie = await movieService.addWatchList(req.body.movieId, req.body.statusId, req.idUser)
+                const movie = await movieService.addWatchList({
+                    userId: req.idUser,
+                    movieId: req.body.movieId,
+                    statusId: req.body.statusId
+                })
                 res.send(movie)
             } else {
                 res.send({

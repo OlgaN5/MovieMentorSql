@@ -1,14 +1,22 @@
 const pool = require('../config/database')
 
 const drop = `
-DROP TABLE IF EXISTS similarMovie;
-DROP TABLE IF EXISTS watchList;
+DROP TABLE IF EXISTS similarMovies;
+DROP TABLE IF EXISTS watchLists;
 DROP TABLE IF EXISTS movie;
+DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS status;
+DROP TABLE IF EXISTS statuses;
 DROP TABLE IF EXISTS users;
 `
+// const drop = `
 
-
+// DROP TABLE IF EXISTS movie;
+// DROP TABLE IF EXISTS movies;
+// DROP TABLE IF EXISTS status;
+// DROP TABLE IF EXISTS statuses;
+// DROP TABLE IF EXISTS users;
+// `
 const user = require('./user')
 const movie = require('./movie')
 const watchList = require('./watchList')
@@ -16,58 +24,29 @@ const similarMovie = require('./similarMovie')
 const status = require('./status')
 
 async function dropTable() {
-    await pool.query(drop, (err, res) => {
-        if (err) {
-            console.log(err.message)
-        } else {
-            console.log('dropped')
-        }
-    })
+    try {
+        await pool.query(drop)
+        console.log('dropped')
+    } catch (err) {
+        console.log(err.message)
+    }
 }
 async function createTable() {
-    await pool.query(drop, (err, res) => {
-        if (err) {
-            console.log(err.message)
-        } else {
-            console.log('dropped')
-        }
-    })
-    await pool.query(movie, (err, res) => {
-        if (err) {
-            console.log(err.message)
-        } else {
-            console.log('succesfull')
-        }
-    })
-    await pool.query(status, (err, res) => {
-        if (err) {
-            console.log(err.message)
-        } else {
-            console.log('succesfull')
-        }
-    })
-    await pool.query(user, (err, res) => {
-        if (err) {
-            console.log(err.message)
-        } else {
-            console.log('succesfull')
-        }
-    })
-    await pool.query(watchList, (err, res) => {
-        if (err) {
-            console.log(err.message)
-        } else {
-            console.log('succesfull')
-        }
-    })
-    await pool.query(similarMovie, (err, res) => {
-        if (err) {
-            console.log(err.message)
-        } else {
-            console.log('succesfull')
-        }
-    })
+    try {
+        await pool.query(movie)
+        console.log('movie created succesfull')
+        await pool.query(status)
+        console.log('status created succesfull')
+        await pool.query(user)
+        console.log('user created succesfull')
+        await pool.query(watchList)
+        console.log('watchList created succesfull')
+        await pool.query(similarMovie)
+        console.log('similarMovie created succesfull')
+    } catch (err) {
+        console.log(err.message)
+    }
 }
 
-// dropTable()
-createTable()
+dropTable()
+// createTable()
