@@ -1,5 +1,4 @@
 const pool = require('../config/database')
-// pool.connect()
 
 const drop = `
 DROP TABLE IF EXISTS similarMovie;
@@ -26,27 +25,27 @@ async function dropTable() {
     })
 }
 async function createTable() {
-    // await pool.query(drop, (err, res) => {
-    //     if (err) {
-    //         console.log(err.message)
-    //     } else {
-    //         console.log('dropped')
-    //     }
-    // })
-    // await pool.query(movie, (err, res) => {
-    //     if (err) {
-    //         console.log(err.message)
-    //     } else {
-    //         console.log('succesfull')
-    //     }
-    // })
-    // await pool.query(status, (err, res) => {
-    //     if (err) {
-    //         console.log(err.message)
-    //     } else {
-    //         console.log('succesfull')
-    //     }
-    // })
+    await pool.query(drop, (err, res) => {
+        if (err) {
+            console.log(err.message)
+        } else {
+            console.log('dropped')
+        }
+    })
+    await pool.query(movie, (err, res) => {
+        if (err) {
+            console.log(err.message)
+        } else {
+            console.log('succesfull')
+        }
+    })
+    await pool.query(status, (err, res) => {
+        if (err) {
+            console.log(err.message)
+        } else {
+            console.log('succesfull')
+        }
+    })
     await pool.query(user, (err, res) => {
         if (err) {
             console.log(err.message)

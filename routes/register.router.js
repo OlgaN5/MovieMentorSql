@@ -35,12 +35,13 @@ const validationBody = [
  *               password:
  *                 type: string
  *                 default: password              
- *     description: use to register user
+ *     description: returns registered user
+ *     summary: use to register user
  *     responses:
- *       '200': 
- *         description: user registered
- *       '401': 
- *         description: not authorization *       
+ *       '200':       
+ *         description: User registered succesfully
+ *       '400': 
+ *         description: Email or login is exist       
  */
 
 router.post('/', validationBody, registerController.register)

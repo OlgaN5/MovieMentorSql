@@ -31,7 +31,7 @@ const validationBodyMovieId = [
  *   post:
  *     tags: 
  *       - Movie
- *     summary: add status in database
+ *     summary: use to add status in database
  *     security:
  *       - bearerAuth: []
  *     description: returns added status
@@ -48,9 +48,9 @@ const validationBodyMovieId = [
  *                 default: watched 
  *     responses:
  *       '200':
- *         description: text
+ *         description: Added succesfully
  *       '401':
- *         description: text
+ *         description: Need a token
  */
 router.post('/add-status', authenticate, movieController.addStatus)
 /**
@@ -82,7 +82,7 @@ router.post('/add-status', authenticate, movieController.addStatus)
  *   post:
  *     tags: 
  *       - Movie
- *     summary: add movie in database
+ *     summary: use to add movie in database
  *     security:
  *       - bearerAuth: []
  *     description: returns added movie
@@ -95,21 +95,21 @@ router.post('/add-status', authenticate, movieController.addStatus)
  *             $ref: '#/components/schemas/Movie'
  *     responses:
  *       '200':
- *         description: text
+ *         description: Added succesfully
  *       '401':
- *         description: text
+ *         description: Need a token
  */
 router.post('/create', validationCheckPropertyMovie, authenticate, movieController.addMovie)
 /**
  * @swagger
  * /api/movies/search:
  *   get:
- *     summary: search movie by title
+ *     summary: use to search movie by title
  *     security:
  *       - bearerAuth: []
  *     tags:
  *       - Movie
- *     description: return movie
+ *     description: returns searched movie
  *     parameters:
  *       - name: movieName
  *         in: query
@@ -117,16 +117,18 @@ router.post('/create', validationCheckPropertyMovie, authenticate, movieControll
  *         description: title of movie
  *         default: 1
  *     responses:
- *       '200':
- *         description: text *       
+ *       '200':      
+ *         description: Added succesfully
+ *       '401':
+ *         description: Need a token       
  */
 router.get('/search', validationQuery, authenticate, movieController.search)
 /**
  * @swagger
  * /api/movies/watchlist:
  *   post:
- *     summary: add watchlist to user
- *     description: text
+ *     summary: use to add watchlist to authorizated user
+ *     description: returns added watchList
  *     security: 
  *       - bearerAuth: []
  *     tags: 
@@ -140,15 +142,17 @@ router.get('/search', validationQuery, authenticate, movieController.search)
  *             $ref: '#/components/schemas/MovieStatus'
  *     responses:
  *       '200':
- *         description: text * 
+ *         description: Found
+ *       '401':
+ *         description: Need a token
  */
 router.post('/watchlist', validationStatus, authenticate, movieController.addWatchList)
 /**
  * @swagger
  * /api/movies/watchList/{movieId}:
  *   patch: 
- *     summary: change status of watchlist by movieId
- *     description: return changed watchlist
+ *     summary: use to change status of watchlist by movieId
+ *     description: returns changed watchlist
  *     security:
  *       - bearerAuth: []
  *     tags: 
@@ -170,15 +174,17 @@ router.post('/watchlist', validationStatus, authenticate, movieController.addWat
  *                 default: 1
  *     responses:
  *       '200': 
- *         description: text
+ *         description: Added succesfully
+ *       '401':
+ *         description: Need a token
  */
 router.patch('/watchList/:movieId', validationParam, validationStatus, authenticate, movieController.changeStatus)
 /**
  * @swagger
  * /api/movies/{movieId}/similar:
  *   post:
- *     summary: add similarMovie
- *     description: return added similarMovie. Takes parameters. movieId (id of movie for which we add a similar movie), body (with one property idMovie, id of similar movie)
+ *     summary: use to add similarMovie to movie
+ *     description: returns added similarMovie
  *     tags: 
  *       - Movie
  *     security: 
@@ -200,14 +206,16 @@ router.patch('/watchList/:movieId', validationParam, validationStatus, authentic
  *                 default: 1
  *     responses:
  *       '200':
- *         descrition: text
+ *         descrition: Changed succesfully
+ *       '401':
+ *         description: Need a token
  */
 router.post('/:movieId/similar', validationParam, validationBodyMovieId, authenticate, movieController.addSimilar)
 /**
  * @swagger
  * /api/movies/{movieId}/recommendations:
  *   get:
- *     summary: get recommended movies
+ *     summary: use to get recommended movies
  *     description: return array recommended movies
  *     tags: 
  *       - Movie
@@ -219,8 +227,9 @@ router.post('/:movieId/similar', validationParam, validationBodyMovieId, authent
  *         required: true
  *     responses: 
  *       '200':
- *         descrition: text
- *   
+ *         descrition: Added succesfully
+ *       '401':
+ *         description: Need a token *   
  */
 router.get('/:movieId/recommendations', validationParam, authenticate, movieController.getRecommendation)
 

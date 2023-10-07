@@ -16,22 +16,15 @@ class registerController {
                     login,
                     password
                 } = req.body
-                // const conditionsEmail = {
-                //     email
-                // }
-                // const conditionsLogin = {
-                //     login
-                // }
                 const isEmail = await registerService.findUserByEmail(email)
                 const isLogin = await registerService.findUserByLogin(login)
-                console.log(isEmail)
                 if (isEmail) {
-                    return res.send({
+                    return res.status(400).json({
                         message: 'email is exist'
                     })
                 }
                 if (isLogin) {
-                    return res.send({
+                    return res.status(400).json({
                         message: 'login is exist'
                     })
                 }
@@ -43,7 +36,8 @@ class registerController {
                 })
                 res.send(user)
             } else {
-                res.send({
+                res.status(400).json({
+                    message: 'invalid fields',
                     errors: result.array()
                 })
             }

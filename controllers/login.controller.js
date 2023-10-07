@@ -31,9 +31,11 @@ class loginController {
                     }
                 }
                 console.log('token', token)
+                if (!token) return res.status(400).json({'message': 'login not exist'})
                 res.send(token)
             } else {
-                res.send({
+                res.status(400).json({
+                    message: 'invalid fields',
                     errors: result.array()
                 })
             }

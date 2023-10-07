@@ -73,7 +73,6 @@ class AccessToDatabase {
         return result.rows[0]
     }
     async updateById(userId, movieId, statusId) {
-        console.log(userId, movieId, statusId)
         return await pool.query(`
         UPDATE watchList 
         SET statusId = $1 
@@ -81,7 +80,6 @@ class AccessToDatabase {
             [statusId, userId, movieId])
     }
     async findStatusId(title) {
-        console.log(title)
         const statusId = await pool.query(`
         SELECT id 
         FROM status 

@@ -1,10 +1,6 @@
 const accessToDatabase = require('../utils/accessToDatabase')
-const {
-    User
-} = require('../models/associations')
 class registerService {
     async createUser(user) {
-        console.log(user)
         return await accessToDatabase.createUser(user)
     }
     async findUserByEmail(email) {
