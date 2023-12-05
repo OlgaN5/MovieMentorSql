@@ -48,5 +48,5 @@ async function createTable() {
     }
 }
 
-dropTable()
-// createTable()
+// dropTable()
+createTable()

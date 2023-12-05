@@ -17,7 +17,6 @@ class loginController {
                     password
                 } = req.body
                 const user = await loginService.getUser(login, email)
-                console.log(user)
                 if (user) {
                     const compare = await bcrypt.compare(password, user.password)
                     console.log(password, user.password)
@@ -28,10 +27,18 @@ class loginController {
                         token = jwt.sign({
                             id
                         }, process.env.SECRET_KEY)
+                    } else {
+                        return res.status(404).json({
+                            message: 'password is wrong'
+                        })
                     }
+                } else {
+                    return res.status(400).json({
+                        'message': 'login not exist'
+                    })
                 }
                 console.log('token', token)
-                if (!token) return res.status(400).json({'message': 'login not exist'})
+                // if (!token) 
                 res.send(token)
             } else {
                 res.status(400).json({
